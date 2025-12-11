@@ -177,78 +177,81 @@
   max-width: 200px;
 }
 
-/* Три основы — нижний ряд */
+/* Три основы — растянули по краям и чуть ниже */
 .fw-base-left {
-  left: 8%;
-  bottom: 8%;
-  max-width: 180px;
+  left: 4%;
+  bottom: 4%;          /* было 8%, опустили пониже */
+  max-width: 190px;
+  transform: rotate(-7deg); /* наклон влево */
 }
 
 .fw-base-center {
   left: 50%;
-  bottom: 8%;
-  transform: translateX(-50%);
-  max-width: 200px;
+  bottom: 4%;
+  max-width: 210px;
+  transform: translateX(-50%) rotate(0deg); /* центр без наклона */
 }
 
 .fw-base-right {
-  right: 8%;
-  bottom: 8%;
-  max-width: 180px;
+  right: 4%;
+  bottom: 4%;
+  max-width: 190px;
+  transform: rotate(7deg);  /* наклон вправо */
 }
 
-/* Красные — чуть выше основ, по краям и по центру */
+/* Красные — второй ряд, всё ещё под карточкой */
 .fw-red-1 {
   left: 12%;
-  bottom: 18%;
+  bottom: 14%;
   max-width: 180px;
 }
 
 .fw-red-2 {
   left: 50%;
-  bottom: 20%;
+  bottom: 16%;
   transform: translateX(-50%);
   max-width: 200px;
 }
 
 .fw-red-3 {
   right: 12%;
-  bottom: 18%;
+  bottom: 14%;
   max-width: 180px;
 }
 
-/* Жёлтые — верхний ряд дуг, но всё ещё ниже карточки */
+/* Жёлтые — повыше, но под карточкой */
 .fw-yellow-1 {
-  left: 26%;
-  bottom: 22%;
-  max-width: 160px;
+  left: 24%;
+  bottom: 18%;
+  max-width: 170px;
 }
 
 .fw-yellow-2 {
-  right: 26%;
-  bottom: 22%;
-  max-width: 160px;
+  right: 24%;
+  bottom: 18%;
+  max-width: 170px;
 }
 
-/* Синие — между красными и жёлтыми */
+/* Синие — между красными и жёлтыми, растянули по длине */
 .fw-blue-1 {
-  left: 20%;
-  bottom: 16%;
-  max-width: 160px;
+  left: 18%;
+  bottom: 12%;
+  max-width: 170px;
 }
 
 .fw-blue-2 {
-  right: 20%;
-  bottom: 16%;
-  max-width: 160px;
+  right: 18%;
+  bottom: 12%;
+  max-width: 170px;
 }
 
-/* Мини-рофло-пук — тоже снизу, ближе к правому краю */
+/* Мини-рофло-пук – тоже снизу, ближе к правому краю */
 .fw-mini {
   right: 18%;
-  bottom: 22%;
+  bottom: 20%;
   max-width: 130px;
 }
+
 
   </style>
 </head>
@@ -368,50 +371,62 @@
 
     // FIREWORKS LOGIC
     function startFireworks() {
-      if (!fireworksEl) return;
+      function startFireworks() {
+  if (!fireworksEl) return;
 
-      const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
-      const bigs  = [fwRed1, fwRed2, fwRed3, fwYellow1, fwYellow2, fwBlue1, fwBlue2];
+  const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
+  const bigs  = [fwRed1, fwRed2, fwRed3, fwYellow1, fwYellow2, fwBlue1, fwBlue2];
 
-      fireworksEl.classList.remove('hidden');
+  fireworksEl.classList.remove('hidden');
 
-      [...bases, ...bigs, fwMini].forEach(img => {
-        if (img) img.style.opacity = 0;
-      });
+  [...bases, ...bigs, fwMini].forEach(img => {
+    if (img) img.style.opacity = 0;
+  });
 
-      // 1) три основы
-      setTimeout(() => {
-        bases.forEach(img => { if (img) img.style.opacity = 1; });
-      }, 0);
+  // 1) Три основы с небольшим рассинхроном
+  bases.forEach((img, index) => {
+    if (!img) return;
+    setTimeout(() => {
+      img.style.opacity = 1;
+    }, index * 150); // левая сразу, центр через 150мс, правая через 300мс
+  });
 
-      // 2) через 0.4 c все большие
-      setTimeout(() => {
-        bigs.forEach(img => { if (img) img.style.opacity = 1; });
-      }, 400);
+  // 2) Через 0.5 с подцепляем все большие (красные/жёлтые/синие)
+  setTimeout(() => {
+    bigs.forEach(img => {
+      if (img) img.style.opacity = 1;
+    });
+  }, 500);
 
-      // 3) к 2.2 c основы гаснут
-      setTimeout(() => {
-        bases.forEach(img => { if (img) img.style.opacity = 0; });
-      }, 2200);
+  // 3) К 2.3 с основы начинают плавно гаснуть
+  setTimeout(() => {
+    bases.forEach(img => {
+      if (img) img.style.opacity = 0;
+    });
+  }, 2300);
 
-      // 4) к 2.4 c гаснут большие
-      setTimeout(() => {
-        bigs.forEach(img => { if (img) img.style.opacity = 0; });
-      }, 2400);
+  // 4) К 2.5 с гаснут остальные большие
+  setTimeout(() => {
+    bigs.forEach(img => {
+      if (img) img.style.opacity = 0;
+    });
+  }, 2500);
 
-      // 5) мини-пук
-      setTimeout(() => {
-        if (fwMini) fwMini.style.opacity = 1;
-      }, 3200);
+  // 5) Мини-рофло-пук (можешь крутить тайминг тут)
+  setTimeout(() => {
+    if (fwMini) fwMini.style.opacity = 1;
+  }, 3200);  // ← задержка появления пука
 
-      setTimeout(() => {
-        if (fwMini) fwMini.style.opacity = 0;
-      }, 4000);
+  setTimeout(() => {
+    if (fwMini) fwMini.style.opacity = 0;
+  }, 4000);  // ← когда он начинает исчезать
 
-      setTimeout(() => {
-        fireworksEl.classList.add('hidden');
-      }, 4200);
-    }
+  // 6) Прячем слой полностью
+  setTimeout(() => {
+    fireworksEl.classList.add('hidden');
+  }, 4300);
+}
+
 
     // ПЕРЕХОД К ПРЕДСКАЗАНИЮ
     function showWishScreenWithAnimation() {
@@ -488,6 +503,7 @@
   </script>
 </body>
 </html>
+
 
 
 
