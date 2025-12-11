@@ -173,83 +173,94 @@
 .fw {
   position: absolute;
   opacity: 0;
-  transition: opacity 0.4s ease-out;
-  max-width: 200px;
+  transition: opacity 0.45s ease-out;
+  max-width: 210px;
 }
 
-/* Три основы — растянули по краям и чуть ниже */
+/* Три основы – максимально растянули и опустили ниже */
 .fw-base-left {
-  left: 4%;
-  bottom: 4%;          /* было 8%, опустили пониже */
+  left: 1%;
+  bottom: 2%;
   max-width: 190px;
-  transform: rotate(-7deg); /* наклон влево */
+  transform: rotate(-12deg);
+  z-index: 1;
 }
 
 .fw-base-center {
   left: 50%;
-  bottom: 4%;
-  max-width: 210px;
-  transform: translateX(-50%) rotate(0deg); /* центр без наклона */
+  bottom: 2%;
+  max-width: 220px;
+  transform: translateX(-50%) rotate(0deg);
+  z-index: 1;
 }
 
 .fw-base-right {
-  right: 4%;
-  bottom: 4%;
+  right: 1%;
+  bottom: 2%;
   max-width: 190px;
-  transform: rotate(7deg);  /* наклон вправо */
+  transform: rotate(12deg);
+  z-index: 1;
 }
 
-/* Красные — второй ряд, всё ещё под карточкой */
+/* Красные – второй слой, чуть выше, разносим по ширине */
 .fw-red-1 {
-  left: 12%;
-  bottom: 14%;
-  max-width: 180px;
+  left: 10%;
+  bottom: 12%;
+  max-width: 190px;
+  z-index: 2;
 }
 
 .fw-red-2 {
-  left: 50%;
-  bottom: 16%;
+  left: 52%;
+  bottom: 15%;
   transform: translateX(-50%);
-  max-width: 200px;
+  max-width: 210px;
+  z-index: 2;
 }
 
 .fw-red-3 {
-  right: 12%;
-  bottom: 14%;
-  max-width: 180px;
+  right: 8%;
+  bottom: 11%;
+  max-width: 190px;
+  z-index: 2;
 }
 
-/* Жёлтые — повыше, но под карточкой */
+/* Жёлтые – третий слой, повыше */
 .fw-yellow-1 {
-  left: 24%;
+  left: 23%;
   bottom: 18%;
-  max-width: 170px;
+  max-width: 180px;
+  z-index: 3;
 }
 
 .fw-yellow-2 {
-  right: 24%;
-  bottom: 18%;
-  max-width: 170px;
+  right: 21%;
+  bottom: 19%;
+  max-width: 180px;
+  z-index: 3;
 }
 
-/* Синие — между красными и жёлтыми, растянули по длине */
+/* Синие – между красными и жёлтыми, тоже вразброс */
 .fw-blue-1 {
-  left: 18%;
-  bottom: 12%;
-  max-width: 170px;
+  left: 17%;
+  bottom: 9%;
+  max-width: 180px;
+  z-index: 2;
 }
 
 .fw-blue-2 {
-  right: 18%;
-  bottom: 12%;
-  max-width: 170px;
+  right: 16%;
+  bottom: 14%;
+  max-width: 180px;
+  z-index: 3;
 }
 
-/* Мини-рофло-пук – тоже снизу, ближе к правому краю */
+/* Мини-рофло-пук – справа снизу, чуть выше основ */
 .fw-mini {
-  right: 18%;
-  bottom: 20%;
-  max-width: 130px;
+  right: 20%;
+  bottom: 21%;
+  max-width: 140px;
+  z-index: 4;
 }
 
 
@@ -370,7 +381,7 @@
     const fwMini        = document.getElementById('fw-mini');
 
     // FIREWORKS LOGIC
-      function startFireworks() {
+ function startFireworks() {
   if (!fireworksEl) return;
 
   const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
@@ -382,49 +393,68 @@
     if (img) img.style.opacity = 0;
   });
 
-  // 1) Три основы с небольшим рассинхроном
+  // ===== 1. ОСНОВЫ СНИЗУ – ВОЛНОЙ =====
+  // левая → правая → центр, с небольшим рассинхроном
+  const baseTimings = [0, 180, 360]; // мс
+
   bases.forEach((img, index) => {
     if (!img) return;
     setTimeout(() => {
       img.style.opacity = 1;
-    }, index * 150); // левая сразу, центр через 150мс, правая через 300мс
+    }, baseTimings[index]);
   });
 
-  // 2) Через 0.5 с подцепляем все большие (красные/жёлтые/синие)
-  setTimeout(() => {
-    bigs.forEach(img => {
-      if (img) img.style.opacity = 1;
-    });
-  }, 500);
+  // ===== 2. БОЛЬШИЕ БАБАХИ – ПЕРЕМЕШАННЫЕ ЦВЕТА И СТОРОНЫ =====
+  // задаём каждому свой момент появления
+  const bigTimings = [
+    { img: fwRed1,    t: 650 },  // слева
+    { img: fwBlue2,   t: 780 },  // справа
+    { img: fwYellow1, t: 910 },  // слева повыше
+    { img: fwRed3,    t: 1040 }, // справа пониже
+    { img: fwBlue1,   t: 1170 }, // слева-низ
+    { img: fwRed2,    t: 1300 }, // центр
+    { img: fwYellow2, t: 1450 }  // справа повыше
+  ];
 
-  // 3) К 2.3 с основы начинают плавно гаснуть
+  bigTimings.forEach(({ img, t }) => {
+    if (!img) return;
+    setTimeout(() => {
+      img.style.opacity = 1;
+    }, t);
+  });
+
+  // ===== 3. ПЛАВНОЕ ЗАТУХАНИЕ =====
+
+  // основы гаснут чуть раньше
   setTimeout(() => {
     bases.forEach(img => {
       if (img) img.style.opacity = 0;
     });
-  }, 2300);
+  }, 2500);
 
-  // 4) К 2.5 с гаснут остальные большие
+  // большие гаснут следом
   setTimeout(() => {
     bigs.forEach(img => {
       if (img) img.style.opacity = 0;
     });
-  }, 2500);
+  }, 2800);
 
-  // 5) Мини-рофло-пук (можешь крутить тайминг тут)
+  // ===== 4. МИНИ-РОФЛО-ПУК =====
+  // выстрел позже, когда основная движуха стихла
   setTimeout(() => {
     if (fwMini) fwMini.style.opacity = 1;
-  }, 3200);  // ← задержка появления пука
+  }, 3200); // появление мини-пука
 
   setTimeout(() => {
     if (fwMini) fwMini.style.opacity = 0;
-  }, 4000);  // ← когда он начинает исчезать
+  }, 4000); // исчезновение мини-пука
 
-  // 6) Прячем слой полностью
+  // ===== 5. Скрываем весь слой =====
   setTimeout(() => {
     fireworksEl.classList.add('hidden');
   }, 4300);
 }
+
 
 
     // ПЕРЕХОД К ПРЕДСКАЗАНИЮ
@@ -502,6 +532,7 @@
   </script>
 </body>
 </html>
+
 
 
 
