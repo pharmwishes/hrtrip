@@ -180,7 +180,7 @@
 /* Три основы – максимально растянули и опустили ниже */
 .fw-base-left {
   left: 1%;
-  bottom: 2%;
+  bottom: 7%;
   max-width: 190px;
   transform: rotate(-12deg);
   z-index: 1;
@@ -188,7 +188,7 @@
 
 .fw-base-center {
   left: 50%;
-  bottom: 2%;
+  bottom: 7%;
   max-width: 220px;
   transform: translateX(-50%) rotate(0deg);
   z-index: 1;
@@ -196,7 +196,7 @@
 
 .fw-base-right {
   right: 1%;
-  bottom: 2%;
+  bottom: 7%;
   max-width: 190px;
   transform: rotate(12deg);
   z-index: 1;
@@ -257,9 +257,9 @@
 
 /* Мини-рофло-пук – справа снизу, чуть выше основ */
 .fw-mini {
-  right: 20%;
-  bottom: 21%;
-  max-width: 140px;
+  right: 25%;
+  bottom: 16%;
+  max-width: 130px;
   z-index: 4;
 }
 
@@ -443,16 +443,16 @@
   // выстрел позже, когда основная движуха стихла
   setTimeout(() => {
     if (fwMini) fwMini.style.opacity = 1;
-  }, 3200); // появление мини-пука
+  }, 3600); // появление мини-пука
 
   setTimeout(() => {
     if (fwMini) fwMini.style.opacity = 0;
-  }, 4000); // исчезновение мини-пука
+  }, 4400); // исчезновение мини-пука
 
   // ===== 5. Скрываем весь слой =====
   setTimeout(() => {
     fireworksEl.classList.add('hidden');
-  }, 4300);
+  }, 4700);
 }
 
 
@@ -532,6 +532,7 @@
   </script>
 </body>
 </html>
+
 
 
 
