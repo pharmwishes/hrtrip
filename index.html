@@ -159,65 +159,124 @@
     .card-animate-in {
       animation: cardFadeInZoom 0.4s ease forwards;
     }
-    /* ============================================================
+/* ============================================================
    FIREWORKS BLOCK: оформление гифок-фейерверков
-   - .fireworks: фиксированный слой поверх фона, под карточкой
-   - .fw-* : позиции отдельных хлопков
    ============================================================ */
 .fireworks {
   position: fixed;
   inset: 0;
-  pointer-events: none;   /* чтобы клики проходили сквозь слой */
-  z-index: 1;             /* ниже карточки (у карточки z-index выше) */
+  pointer-events: none;
+  z-index: 1; /* слой под карточкой (сама карточка остаётся сверху) */
 }
 
 .fw {
   position: absolute;
   opacity: 0;
-  transition: opacity 0.35s ease-out;
-}
-
-/* Основной хлопок — чуть ниже центра, за/под карточкой */
-.fw-base {
-  left: 50%;
-  bottom: 18%;
-  transform: translateX(-50%);
-  max-width: 220px;
-}
-
-/* Красный хлопок — слева внизу */
-.fw-red {
-  left: 6%;
-  bottom: 12%;
+  transition: opacity 0.4s ease-out; /* плавное исчезновение по прозрачности */
   max-width: 200px;
 }
 
-/* Жёлтый хлопок — справа внизу */
-.fw-yellow {
-  right: 5%;
-  bottom: 15%;
-  max-width: 220px;
+/* Три основы снизу */
+.fw-base-left {
+  left: 6%;
+  bottom: 10%;
+  max-width: 180px;
 }
 
-/* Маленький рофл-хлопок — внизу справа, на месте правого салюта */
+.fw-base-center {
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  max-width: 200px;
+}
+
+.fw-base-right {
+  right: 6%;
+  bottom: 10%;
+  max-width: 180px;
+}
+
+/* Красные – вокруг карточки, чуть выше */
+.fw-red-1 {
+  left: 8%;
+  bottom: 30%;
+  max-width: 180px;
+}
+
+.fw-red-2 {
+  left: 50%;
+  bottom: 34%;
+  transform: translateX(-50%);
+  max-width: 200px;
+}
+
+.fw-red-3 {
+  right: 8%;
+  bottom: 28%;
+  max-width: 180px;
+}
+
+/* Жёлтые – верхняя линия */
+.fw-yellow-1 {
+  left: 18%;
+  top: 9%;
+  max-width: 160px;
+}
+
+.fw-yellow-2 {
+  right: 18%;
+  top: 11%;
+  max-width: 160px;
+}
+
+/* Синие – чуть ниже жёлтых, ближе к центру */
+.fw-blue-1 {
+  left: 28%;
+  top: 22%;
+  max-width: 160px;
+}
+
+.fw-blue-2 {
+  right: 28%;
+  top: 20%;
+  max-width: 160px;
+}
+
+/* Мини-рофло-пук – справа внизу, рядом с карточкой */
 .fw-mini {
-  right: 5%;
-  bottom: 15%;
+  right: 12%;
+  bottom: 22%;
   max-width: 130px;
 }
-
 
     /* ====================== ANIMATION BLOCK END ====================== */
   </style>
 </head>
 <body>
   <!-- FIREWORKS BLOCK: слой с гифками, вспыхивает при показе предсказания -->
-<div id="fireworks" class="fireworks hidden">
-  <img id="fw-base"   class="fw fw-base"   src="osnova.gif"        alt="Фейерверк">
-  <img id="fw-red"    class="fw fw-red"    src="red_babah.gif"     alt="Фейерверк">
-  <img id="fw-yellow" class="fw fw-yellow" src="yellow_babah.gif"  alt="Фейерверк">
-  <img id="fw-mini"   class="fw fw-mini"   src="mini_babah.gif"    alt="Фейерверк">
-</div>
+  <div id="fireworks" class="fireworks hidden">
+    <!-- три основы внизу -->
+    <img id="fw-base-left"   class="fw fw-base-left"   src="osnova.gif"       alt="Фейерверк">
+    <img id="fw-base-center" class="fw fw-base-center" src="osnova.gif"       alt="Фейерверк">
+    <img id="fw-base-right"  class="fw fw-base-right"  src="osnova.gif"       alt="Фейерверк">
+
+    <!-- красные хлопки -->
+    <img id="fw-red-1"    class="fw fw-red-1"    src="red_babah.gif"    alt="Фейерверк">
+    <img id="fw-red-2"    class="fw fw-red-2"    src="red_babah.gif"    alt="Фейерверк">
+    <img id="fw-red-3"    class="fw fw-red-3"    src="red_babah.gif"    alt="Фейерверк">
+
+    <!-- жёлтые хлопки -->
+    <img id="fw-yellow-1" class="fw fw-yellow-1" src="yellow_babah.gif" alt="Фейерверк">
+    <img id="fw-yellow-2" class="fw fw-yellow-2" src="yellow_babah.gif" alt="Фейерверк">
+
+    <!-- синие хлопки -->
+    <img id="fw-blue-1"   class="fw fw-blue-1"   src="blue_babah.gif"   alt="Фейерверк">
+    <img id="fw-blue-2"   class="fw fw-blue-2"   src="blue_babah.gif"   alt="Фейерверк">
+
+    <!-- мини-рофло-пук -->
+    <img id="fw-mini"     class="fw fw-mini"     src="mini_babah.gif"   alt="Фейерверк">
+  </div>
+
 
   <div class="app">
     <!-- Экран ввода кода -->
@@ -304,67 +363,84 @@
     const wishTextEl    = document.getElementById('wish-text');
 // ============================================================
     // ANIMATION_BABAH //
-    const fireworksEl = document.getElementById('fireworks');
-    const fwBase      = document.getElementById('fw-base');
-    const fwRed       = document.getElementById('fw-red');
-    const fwYellow    = document.getElementById('fw-yellow');
-    const fwMini      = document.getElementById('fw-mini');
+    const fireworksEl   = document.getElementById('fireworks');
+    const fwBaseLeft    = document.getElementById('fw-base-left');
+    const fwBaseCenter  = document.getElementById('fw-base-center');
+    const fwBaseRight   = document.getElementById('fw-base-right');
+    const fwRed1        = document.getElementById('fw-red-1');
+    const fwRed2        = document.getElementById('fw-red-2');
+    const fwRed3        = document.getElementById('fw-red-3');
+    const fwYellow1     = document.getElementById('fw-yellow-1');
+    const fwYellow2     = document.getElementById('fw-yellow-2');
+    const fwBlue1       = document.getElementById('fw-blue-1');
+    const fwBlue2       = document.getElementById('fw-blue-2');
+    const fwMini        = document.getElementById('fw-mini');
 
-    // ============================================================
-    //  FIREWORKS BLOCK (JS): последовательное появление гифок
-    //  - основа снизу → fade out
-    //  - чуть позже два крупных хлопка → fade out
-    //  - с задержкой ~1.8 c маленький «пук» справа внизу → fade out
+
+      // ============================================================
+    //  FIREWORKS BLOCK (JS):
+    //  - 3 основы снизу
+    //  - сверху/сбоку красные+жёлтые+синие
+    //  - всё гаснет, затем мини-пук
     // ============================================================
     function startFireworks() {
       if (!fireworksEl) return;
 
-      // показываем слой
+      const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
+      const bigs  = [fwRed1, fwRed2, fwRed3, fwYellow1, fwYellow2, fwBlue1, fwBlue2];
+
       fireworksEl.classList.remove('hidden');
 
-      const allImgs = [fwBase, fwRed, fwYellow, fwMini];
-
-      // обнуляем прозрачность на всякий случай
-      allImgs.forEach(img => {
-        if (!img) return;
-        img.style.opacity = 0;
+      // Сбрасываем прозрачность
+      [...bases, ...bigs, fwMini].forEach(img => {
+        if (img) img.style.opacity = 0;
       });
 
-      // 1) ОСНОВА — сразу появляется и плавно гаснет
+      // 1) сразу зажигаем три основы
       setTimeout(() => {
-        if (fwBase) fwBase.style.opacity = 1;
+        bases.forEach(img => {
+          if (img) img.style.opacity = 1;
+        });
       }, 0);
 
+      // 2) через 0.4 c подцепляем все большие (красные/жёлтые/синие)
       setTimeout(() => {
-        if (fwBase) fwBase.style.opacity = 0; // плавный fade-out за счёт transition в CSS
-      }, 1500); // через 1.5 c после старта
+        bigs.forEach(img => {
+          if (img) img.style.opacity = 1;
+        });
+      }, 400);
 
-      // 2) КРАСНЫЙ + ЖЁЛТЫЙ — чуть позже, тоже с fade-out
+      // 3) к 2.2 c основы начинают плавно гаснуть
       setTimeout(() => {
-        if (fwRed)    fwRed.style.opacity    = 1;
-        if (fwYellow) fwYellow.style.opacity = 1;
-      }, 600); // появление через 0.6 c
+        bases.forEach(img => {
+          if (img) img.style.opacity = 0;
+        });
+      }, 2200);
 
+      // 4) к 2.4 c гаснут остальные большие
       setTimeout(() => {
-        if (fwRed)    fwRed.style.opacity    = 0;
-        if (fwYellow) fwYellow.style.opacity = 0;
-      }, 2000); // гаснут к ~2 c
+        bigs.forEach(img => {
+          if (img) img.style.opacity = 0;
+        });
+      }, 2400);
 
-      // 3) МАЛЕНЬКИЙ «ПУК» СПРАВА ВНИЗУ
+      // 5) через ~2.6 c – мини-рофло-пук
       setTimeout(() => {
         if (fwMini) fwMini.style.opacity = 1;
-      }, 1800); // задержка 1.8 c от старта (как ты и хотел 1.5–2)
+      }, 2600);
 
+      // 6) к 3.4 c мини-пук тоже исчезает
       setTimeout(() => {
         if (fwMini) fwMini.style.opacity = 0;
-      }, 2600); // чуть погорел и плавно исчез
+      }, 3400);
 
-      // 4) После всех fade-out прячем слой целиком
+      // 7) к 3.6 c убираем весь слой
       setTimeout(() => {
         fireworksEl.classList.add('hidden');
-      }, 3000); // даём запас, чтобы переходы по opacity успели доиграть
+      }, 3600);
     }
     // ====================== FIREWORKS BLOCK END ======================
+
 
 
     // ============================================================
@@ -394,30 +470,37 @@
       };
       wishScreen.addEventListener('animationend', onWishAnimEnd);
     }
-        function showWishScreenWithAnimation() {
-      // запускаем фейерверки при переходе к предсказанию
-      startFireworks();
+    
+      function showWishScreenWithAnimation() {
+      const ANIMATION_DELAY = 500; // мс, можно потом подкрутить (400–700)
 
-      // показываем вторую карточку (она появится с анимацией)
-      wishScreen.classList.remove('hidden');
-      wishScreen.classList.add('card-animate-in');
+      setTimeout(() => {
+        // запускаем салют
+        startFireworks();
 
-      // запускаем анимацию исчезновения первой
-      codeScreen.classList.add('card-animate-out');
+        // показываем вторую карточку (она появится с анимацией)
+        wishScreen.classList.remove('hidden');
+        wishScreen.classList.add('card-animate-in');
 
-      const onCodeAnimEnd = () => {
-        codeScreen.classList.add('hidden');
-        codeScreen.classList.remove('card-animate-out');
-        codeScreen.removeEventListener('animationend', onCodeAnimEnd);
-      };
-      codeScreen.addEventListener('animationend', onCodeAnimEnd);
+        // запускаем анимацию исчезновения первой
+        codeScreen.classList.add('card-animate-out');
 
-      const onWishAnimEnd = () => {
-        wishScreen.classList.remove('card-animate-in');
-        wishScreen.removeEventListener('animationend', onWishAnimEnd);
-      };
-      wishScreen.addEventListener('animationend', onWishAnimEnd);
+        const onCodeAnimEnd = () => {
+          codeScreen.classList.add('hidden');
+          codeScreen.classList.remove('card-animate-out');
+          codeScreen.removeEventListener('animationend', onCodeAnimEnd);
+        };
+        codeScreen.addEventListener('animationend', onCodeAnimEnd);
+
+        const onWishAnimEnd = () => {
+          wishScreen.classList.remove('card-animate-in');
+          wishScreen.removeEventListener('animationend', onWishAnimEnd);
+        };
+        wishScreen.addEventListener('animationend', onWishAnimEnd);
+
+      }, ANIMATION_DELAY);
     }
+
 
     // ====================== ANIMATION BLOCK END ======================
 
@@ -452,6 +535,12 @@
         return;
       }
 
+      wishTextEl.textContent = wish;
+      codeInput.blur(); // прячем клавиатуру на мобилках
+
+      showWishScreenWithAnimation();
+    }
+
       // Показ предсказания + анимация перехода
       wishTextEl.textContent = wish;
       showWishScreenWithAnimation();
@@ -471,6 +560,7 @@
   </script>
 </body>
 </html>
+
 
 
 
