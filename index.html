@@ -199,13 +199,13 @@
   max-width: 220px;
 }
 
-/* Маленький рофл-хлопок — сверху по центру */
+/* Маленький рофл-хлопок — внизу справа, на месте правого салюта */
 .fw-mini {
-  left: 50%;
-  top: 12%;
-  transform: translateX(-50%);
-  max-width: 140px;
+  right: 5%;
+  bottom: 15%;
+  max-width: 130px;
 }
+
 
     /* ====================== ANIMATION BLOCK END ====================== */
   </style>
@@ -312,10 +312,9 @@
 
     // ============================================================
     //  FIREWORKS BLOCK (JS): последовательное появление гифок
-    //  - сначала основа,
-    //  - через ~0.7 с красный + жёлтый,
-    //  - через ~1.6 с маленький верхний,
-    //  - через ~3.2 с всё прячем.
+    //  - основа снизу → fade out
+    //  - чуть позже два крупных хлопка → fade out
+    //  - с задержкой ~1.8 c маленький «пук» справа внизу → fade out
     // ============================================================
     function startFireworks() {
       if (!fireworksEl) return;
@@ -323,36 +322,50 @@
       // показываем слой
       fireworksEl.classList.remove('hidden');
 
-      // начальное состояние (на всякий случай)
-      [fwBase, fwRed, fwYellow, fwMini].forEach(img => {
-        if (img) img.style.opacity = 0;
+      const allImgs = [fwBase, fwRed, fwYellow, fwMini];
+
+      // обнуляем прозрачность на всякий случай
+      allImgs.forEach(img => {
+        if (!img) return;
+        img.style.opacity = 0;
       });
 
-      // 1) основа сразу
+      // 1) ОСНОВА — сразу появляется и плавно гаснет
       setTimeout(() => {
         if (fwBase) fwBase.style.opacity = 1;
       }, 0);
 
-      // 2) через 700 мс — два крупных хлопка по бокам
       setTimeout(() => {
-        if (fwRed) fwRed.style.opacity = 1;
-        if (fwYellow) fwYellow.style.opacity = 1;
-      }, 700);
+        if (fwBase) fwBase.style.opacity = 0; // плавный fade-out за счёт transition в CSS
+      }, 1500); // через 1.5 c после старта
 
-      // 3) ещё через ~900 мс — маленький рофл сверху
+      // 2) КРАСНЫЙ + ЖЁЛТЫЙ — чуть позже, тоже с fade-out
+      setTimeout(() => {
+        if (fwRed)    fwRed.style.opacity    = 1;
+        if (fwYellow) fwYellow.style.opacity = 1;
+      }, 600); // появление через 0.6 c
+
+      setTimeout(() => {
+        if (fwRed)    fwRed.style.opacity    = 0;
+        if (fwYellow) fwYellow.style.opacity = 0;
+      }, 2000); // гаснут к ~2 c
+
+      // 3) МАЛЕНЬКИЙ «ПУК» СПРАВА ВНИЗУ
       setTimeout(() => {
         if (fwMini) fwMini.style.opacity = 1;
-      }, 1600);
+      }, 1800); // задержка 1.8 c от старта (как ты и хотел 1.5–2)
 
-      // 4) через 3.2 с всё плавно убираем
+      setTimeout(() => {
+        if (fwMini) fwMini.style.opacity = 0;
+      }, 2600); // чуть погорел и плавно исчез
+
+      // 4) После всех fade-out прячем слой целиком
       setTimeout(() => {
         fireworksEl.classList.add('hidden');
-        [fwBase, fwRed, fwYellow, fwMini].forEach(img => {
-          if (img) img.style.opacity = 0;
-        });
-      }, 3200);
+      }, 3000); // даём запас, чтобы переходы по opacity успели доиграть
     }
     // ====================== FIREWORKS BLOCK END ======================
+
 
     // ============================================================
     //  ANIMATION BLOCK (JS):
@@ -458,6 +471,7 @@
   </script>
 </body>
 </html>
+
 
 
 
