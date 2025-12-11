@@ -177,10 +177,10 @@
   max-width: 210px;
 }
 
-/* Три основы – максимально растянули и опустили ниже */
+/* Три основы – растянуты и опущены вниз */
 .fw-base-left {
-  left: 4%;
-  bottom: 7%;
+  left: 2%;
+  bottom: 6%;
   max-width: 190px;
   transform: rotate(-12deg);
   z-index: 1;
@@ -188,30 +188,30 @@
 
 .fw-base-center {
   left: 50%;
-  bottom: 7%;
+  bottom: 6%;
   max-width: 220px;
   transform: translateX(-50%) rotate(0deg);
   z-index: 1;
 }
 
 .fw-base-right {
-  right: 5%;
-  bottom: 7%;
+  right: 2%;
+  bottom: 6%;
   max-width: 190px;
   transform: rotate(12deg);
   z-index: 1;
 }
 
-/* Красные – второй слой, чуть выше, разносим по ширине */
+/* Красные – второй слой */
 .fw-red-1 {
-  left: 10%;
+  left: 8%;
   bottom: 12%;
   max-width: 190px;
   z-index: 2;
 }
 
 .fw-red-2 {
-  left: 52%;
+  left: 50%;
   bottom: 15%;
   transform: translateX(-50%);
   max-width: 210px;
@@ -220,29 +220,29 @@
 
 .fw-red-3 {
   right: 8%;
-  bottom: 11%;
+  bottom: 12%;
   max-width: 190px;
   z-index: 2;
 }
 
-/* Жёлтые – третий слой, повыше */
+/* Жёлтые – третий слой, чуть выше */
 .fw-yellow-1 {
-  left: 23%;
+  left: 24%;
   bottom: 18%;
   max-width: 180px;
   z-index: 3;
 }
 
 .fw-yellow-2 {
-  right: 21%;
-  bottom: 19%;
+  right: 24%;
+  bottom: 18%;
   max-width: 180px;
   z-index: 3;
 }
 
-/* Синие – между красными и жёлтыми, тоже вразброс */
+/* Синие – между красными и жёлтыми */
 .fw-blue-1 {
-  left: 17%;
+  left: 16%;
   bottom: 9%;
   max-width: 180px;
   z-index: 2;
@@ -255,42 +255,80 @@
   z-index: 3;
 }
 
+/* Белые круговые хлопки – почти по краям, повыше */
+.fw-white-1 {
+  left: 5%;
+  bottom: 20%;
+  max-width: 190px;
+  z-index: 3;
+}
+
+.fw-white-2 {
+  right: 5%;
+  bottom: 20%;
+  max-width: 190px;
+  z-index: 3;
+}
+
+/* Белые “сопли” – ближе к центру */
+.fw-whiteS-1 {
+  left: 30%;
+  bottom: 22%;
+  max-width: 200px;
+  z-index: 4;
+}
+
+.fw-whiteS-2 {
+  right: 30%;
+  bottom: 22%;
+  max-width: 200px;
+  z-index: 4;
+}
+
 /* Мини-рофло-пук – справа снизу, чуть выше основ */
 .fw-mini {
   right: 33%;
   bottom: 13%;
   max-width: 130px;
-  z-index: 4;
+  z-index: 5;
 }
-
 
   </style>
 </head>
 <body>
 
-  <!-- FIREWORKS BLOCK: слой с гифками, вспыхивает при показе предсказания -->
+    <!-- FIREWORKS BLOCK: слой с гифками, вспыхивает при показе предсказания -->
   <div id="fireworks" class="fireworks hidden">
     <!-- три основы внизу -->
-    <img id="fw-base-left"   class="fw fw-base-left"   src="osnova.gif"       alt="Фейерверк">
-    <img id="fw-base-center" class="fw fw-base-center" src="osnova.gif"       alt="Фейерверк">
-    <img id="fw-base-right"  class="fw fw-base-right"  src="osnova.gif"       alt="Фейерверк">
+    <img id="fw-base-left"   class="fw fw-base-left"   src="osnova.gif"             alt="Фейерверк">
+    <img id="fw-base-center" class="fw fw-base-center" src="osnova.gif"             alt="Фейерверк">
+    <img id="fw-base-right"  class="fw fw-base-right"  src="osnova.gif"             alt="Фейерверк">
 
     <!-- красные хлопки -->
-    <img id="fw-red-1"    class="fw fw-red-1"    src="red_babah.gif"    alt="Фейерверк">
-    <img id="fw-red-2"    class="fw fw-red-2"    src="red_babah.gif"    alt="Фейерверк">
-    <img id="fw-red-3"    class="fw fw-red-3"    src="red_babah.gif"    alt="Фейерверк">
+    <img id="fw-red-1"       class="fw fw-red-1"       src="red_babah.gif"          alt="Фейерверк">
+    <img id="fw-red-2"       class="fw fw-red-2"       src="red_babah.gif"          alt="Фейерверк">
+    <img id="fw-red-3"       class="fw fw-red-3"       src="red_babah.gif"          alt="Фейерверк">
 
     <!-- жёлтые хлопки -->
-    <img id="fw-yellow-1" class="fw fw-yellow-1" src="yellow_babah.gif" alt="Фейерверк">
-    <img id="fw-yellow-2" class="fw fw-yellow-2" src="yellow_babah.gif" alt="Фейерверк">
+    <img id="fw-yellow-1"    class="fw fw-yellow-1"    src="yellow_babah.gif"       alt="Фейерверк">
+    <img id="fw-yellow-2"    class="fw fw-yellow-2"    src="yellow_babah.gif"       alt="Фейерверк">
 
     <!-- синие хлопки -->
-    <img id="fw-blue-1"   class="fw fw-blue-1"   src="blue_babah.gif"   alt="Фейерверк">
-    <img id="fw-blue-2"   class="fw fw-blue-2"   src="blue_babah.gif"   alt="Фейерверк">
+    <img id="fw-blue-1"      class="fw fw-blue-1"      src="blue_babah.gif"         alt="Фейерверк">
+    <img id="fw-blue-2"      class="fw fw-blue-2"      src="blue_babah.gif"         alt="Фейерверк">
+
+    <!-- белые хлопки -->
+    <img id="fw-white-1"     class="fw fw-white-1"     src="white_babah.gif"        alt="Фейерверк">
+    <img id="fw-white-2"     class="fw fw-white-2"     src="white_babah.gif"        alt="Фейерверк">
+
+    <!-- белые “сопли” -->
+    <img id="fw-whiteS-1"    class="fw fw-whiteS-1"    src="white_babah_sopli.gif"  alt="Фейерверк">
+    <img id="fw-whiteS-2"    class="fw fw-whiteS-2"    src="white_babah_sopli.gif"  alt="Фейерверк">
 
     <!-- мини-рофло-пук -->
-    <img id="fw-mini"     class="fw fw-mini"     src="mini_babah.gif"   alt="Фейерверк">
+    <img id="fw-mini"        class="fw fw-mini"        src="mini_babah.gif"         alt="Фейерверк">
   </div>
+
 
   <div class="app">
     <!-- Экран ввода кода -->
@@ -357,7 +395,6 @@
             // ============================================================ Настя Кочкина 
       "AACH2224": "Пусть следующий будет годом чудес для тебя. Не забывай радоваться сама, а не только организовывать радость другим.",
       "AACH1024": "Твое предсказание простое: дальше будет больше задач, больше людей и… больше поводов собой гордиться. Главное — не забывать, что ты тут не случайно."
-      // сюда добавишь остальные коды
     };
 
     const codeInput     = document.getElementById('code-input');
@@ -368,94 +405,109 @@
     const wishTextEl    = document.getElementById('wish-text');
 
     // FIREWORKS elements
-    const fireworksEl   = document.getElementById('fireworks');
+        const fireworksEl   = document.getElementById('fireworks');
     const fwBaseLeft    = document.getElementById('fw-base-left');
     const fwBaseCenter  = document.getElementById('fw-base-center');
     const fwBaseRight   = document.getElementById('fw-base-right');
+
     const fwRed1        = document.getElementById('fw-red-1');
     const fwRed2        = document.getElementById('fw-red-2');
     const fwRed3        = document.getElementById('fw-red-3');
+
     const fwYellow1     = document.getElementById('fw-yellow-1');
     const fwYellow2     = document.getElementById('fw-yellow-2');
+
     const fwBlue1       = document.getElementById('fw-blue-1');
     const fwBlue2       = document.getElementById('fw-blue-2');
+
+    const fwWhite1      = document.getElementById('fw-white-1');
+    const fwWhite2      = document.getElementById('fw-white-2');
+
+    const fwWhiteS1     = document.getElementById('fw-whiteS-1');
+    const fwWhiteS2     = document.getElementById('fw-whiteS-2');
+
     const fwMini        = document.getElementById('fw-mini');
 
+
     // FIREWORKS LOGIC
- function startFireworks() {
-  if (!fireworksEl) return;
+    function startFireworks() {
+      if (!fireworksEl) return;
 
-  const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
-  const bigs  = [fwRed1, fwRed2, fwRed3, fwYellow1, fwYellow2, fwBlue1, fwBlue2];
+      const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
 
-  fireworksEl.classList.remove('hidden');
+      const bigs  = [
+        fwRed1, fwRed2, fwRed3,
+        fwYellow1, fwYellow2,
+        fwBlue1, fwBlue2,
+        fwWhite1, fwWhite2,
+        fwWhiteS1, fwWhiteS2
+      ];
 
-  [...bases, ...bigs, fwMini].forEach(img => {
-    if (img) img.style.opacity = 0;
-  });
+      fireworksEl.classList.remove('hidden');
 
-  // ===== 1. ОСНОВЫ СНИЗУ – ВОЛНОЙ =====
-  // левая → правая → центр, с небольшим рассинхроном
-  const baseTimings = [0, 180, 360]; // мс
+      [...bases, ...bigs, fwMini].forEach(img => {
+        if (img) img.style.opacity = 0;
+      });
 
-  bases.forEach((img, index) => {
-    if (!img) return;
-    setTimeout(() => {
-      img.style.opacity = 1;
-    }, baseTimings[index]);
-  });
+      // ===== 1. ОСНОВЫ – волной слева направо =====
+      const baseTimings = [0, 180, 360]; // мс
 
-  // ===== 2. БОЛЬШИЕ БАБАХИ – ПЕРЕМЕШАННЫЕ ЦВЕТА И СТОРОНЫ =====
-  // задаём каждому свой момент появления
-  const bigTimings = [
-    { img: fwRed1,    t: 650 },  // слева
-    { img: fwBlue2,   t: 880 },  // справа
-    { img: fwYellow1, t: 1010 },  // слева повыше
-    { img: fwRed3,    t: 1190 }, // справа пониже
-    { img: fwBlue1,   t: 1340 }, // слева-низ
-    { img: fwRed2,    t: 1500 }, // центр
-    { img: fwYellow2, t: 1620 }  // справа повыше
-  ];
+      bases.forEach((img, index) => {
+        if (!img) return;
+        setTimeout(() => {
+          img.style.opacity = 1;
+        }, baseTimings[index]);
+      });
 
-  bigTimings.forEach(({ img, t }) => {
-    if (!img) return;
-    setTimeout(() => {
-      img.style.opacity = 1;
-    }, t);
-  });
+      // ===== 2. БОЛЬШИЕ БАБАХИ – перемешанные цвета/стороны =====
+      const bigTimings = [
+        { img: fwRed1,    t: 650 },  // красный слева
+        { img: fwBlue2,   t: 880 },  // синий справа
+        { img: fwWhite1,  t: 930 }, // белый слева
+        { img: fwYellow1, t: 1070 }, // жёлтый слева выше
+        { img: fwRed3,    t: 1340 }, // красный справа
+        { img: fwWhiteS1, t: 1360 }, // белые сопли слева-центр
+        { img: fwBlue1,   t: 1400 }, // синий слева-низ
+        { img: fwRed2,    t: 1480 }, // красный центр
+        { img: fwYellow2, t: 1720 }, // жёлтый справа
+        { img: fwWhite2,  t: 1840 }, // белый справа край
+        { img: fwWhiteS2, t: 1960 }  // белые сопли справа-центр
+      ];
 
-  // ===== 3. ПЛАВНОЕ ЗАТУХАНИЕ =====
+      bigTimings.forEach(({ img, t }) => {
+        if (!img) return;
+        setTimeout(() => {
+          img.style.opacity = 1;
+        }, t);
+      });
 
-  // основы гаснут чуть раньше
-  setTimeout(() => {
-    bases.forEach(img => {
-      if (img) img.style.opacity = 0;
-    });
-  }, 2500);
+      // ===== 3. Плавное затухание =====
+      setTimeout(() => {
+        bases.forEach(img => {
+          if (img) img.style.opacity = 0;
+        });
+      }, 2700);
 
-  // большие гаснут следом
-  setTimeout(() => {
-    bigs.forEach(img => {
-      if (img) img.style.opacity = 0;
-    });
-  }, 2800);
+      setTimeout(() => {
+        bigs.forEach(img => {
+          if (img) img.style.opacity = 0;
+        });
+      }, 3000);
 
-  // ===== 4. МИНИ-РОФЛО-ПУК =====
-  // выстрел позже, когда основная движуха стихла
-  setTimeout(() => {
-    if (fwMini) fwMini.style.opacity = 1;
-  }, 3600); // появление мини-пука
+      // ===== 4. Мини-рофло-пук =====
+      setTimeout(() => {
+        if (fwMini) fwMini.style.opacity = 1;
+      }, 3800);
 
-  setTimeout(() => {
-    if (fwMini) fwMini.style.opacity = 0;
-  }, 4400); // исчезновение мини-пука
+      setTimeout(() => {
+        if (fwMini) fwMini.style.opacity = 0;
+      }, 4600);
 
-  // ===== 5. Скрываем весь слой =====
-  setTimeout(() => {
-    fireworksEl.classList.add('hidden');
-  }, 4700);
-}
-
+      // ===== 5. Убираем слой целиком =====
+      setTimeout(() => {
+        fireworksEl.classList.add('hidden');
+      }, 4900);
+    }
 
 
     // ПЕРЕХОД К ПРЕДСКАЗАНИЮ
@@ -533,6 +585,7 @@
   </script>
 </body>
 </html>
+
 
 
 
