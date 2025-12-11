@@ -160,95 +160,96 @@
       animation: cardFadeInZoom 0.4s ease forwards;
     }
 
-    /* ============================================================
-       FIREWORKS BLOCK: оформление гифок-фейерверков
-       ============================================================ */
-    .fireworks {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1; /* слой под карточкой */
-    }
+/* ============================================================
+   FIREWORKS BLOCK: оформление гифок-фейерверков
+   ============================================================ */
+.fireworks {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1; /* слой под карточкой */
+}
 
-    .fw {
-      position: absolute;
-      opacity: 0;
-      transition: opacity 0.4s ease-out;
-      max-width: 200px;
-    }
+.fw {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  max-width: 200px;
+}
 
-    /* Три основы снизу */
-    .fw-base-left {
-      left: 6%;
-      bottom: 10%;
-      max-width: 180px;
-    }
+/* Три основы — нижний ряд */
+.fw-base-left {
+  left: 8%;
+  bottom: 8%;
+  max-width: 180px;
+}
 
-    .fw-base-center {
-      left: 50%;
-      bottom: 10%;
-      transform: translateX(-50%);
-      max-width: 200px;
-    }
+.fw-base-center {
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  max-width: 200px;
+}
 
-    .fw-base-right {
-      right: 6%;
-      bottom: 10%;
-      max-width: 180px;
-    }
+.fw-base-right {
+  right: 8%;
+  bottom: 8%;
+  max-width: 180px;
+}
 
-    /* Красные – вокруг карточки, чуть выше */
-    .fw-red-1 {
-      left: 8%;
-      bottom: 30%;
-      max-width: 180px;
-    }
+/* Красные — чуть выше основ, по краям и по центру */
+.fw-red-1 {
+  left: 12%;
+  bottom: 18%;
+  max-width: 180px;
+}
 
-    .fw-red-2 {
-      left: 50%;
-      bottom: 34%;
-      transform: translateX(-50%);
-      max-width: 200px;
-    }
+.fw-red-2 {
+  left: 50%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  max-width: 200px;
+}
 
-    .fw-red-3 {
-      right: 8%;
-      bottom: 28%;
-      max-width: 180px;
-    }
+.fw-red-3 {
+  right: 12%;
+  bottom: 18%;
+  max-width: 180px;
+}
 
-    /* Жёлтые – верхняя линия */
-    .fw-yellow-1 {
-      left: 18%;
-      top: 9%;
-      max-width: 160px;
-    }
+/* Жёлтые — верхний ряд дуг, но всё ещё ниже карточки */
+.fw-yellow-1 {
+  left: 26%;
+  bottom: 22%;
+  max-width: 160px;
+}
 
-    .fw-yellow-2 {
-      right: 18%;
-      top: 11%;
-      max-width: 160px;
-    }
+.fw-yellow-2 {
+  right: 26%;
+  bottom: 22%;
+  max-width: 160px;
+}
 
-    /* Синие – чуть ниже жёлтых, ближе к центру */
-    .fw-blue-1 {
-      left: 28%;
-      top: 22%;
-      max-width: 160px;
-    }
+/* Синие — между красными и жёлтыми */
+.fw-blue-1 {
+  left: 20%;
+  bottom: 16%;
+  max-width: 160px;
+}
 
-    .fw-blue-2 {
-      right: 28%;
-      top: 20%;
-      max-width: 160px;
-    }
+.fw-blue-2 {
+  right: 20%;
+  bottom: 16%;
+  max-width: 160px;
+}
 
-    /* Мини-рофло-пук – справа внизу, рядом с карточкой */
-    .fw-mini {
-      right: 12%;
-      bottom: 22%;
-      max-width: 130px;
-    }
+/* Мини-рофло-пук — тоже снизу, ближе к правому краю */
+.fw-mini {
+  right: 18%;
+  bottom: 22%;
+  max-width: 120px;
+}
+
   </style>
 </head>
 <body>
@@ -401,11 +402,11 @@
       // 5) мини-пук
       setTimeout(() => {
         if (fwMini) fwMini.style.opacity = 1;
-      }, 2600);
+      }, 3600);
 
       setTimeout(() => {
         if (fwMini) fwMini.style.opacity = 0;
-      }, 3400);
+      }, 4400);
 
       setTimeout(() => {
         fireworksEl.classList.add('hidden');
@@ -487,5 +488,6 @@
   </script>
 </body>
 </html>
+
 
 
