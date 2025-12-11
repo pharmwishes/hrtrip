@@ -177,10 +177,10 @@
   max-width: 210px;
 }
 
-/* Три основы – растянуты и опущены вниз */
+/* Три основы – растянули и опустили вниз, 5–7% от краёв */
 .fw-base-left {
-  left: 2%;
-  bottom: 6%;
+  left: 5%;
+  bottom: 5%;
   max-width: 190px;
   transform: rotate(-12deg);
   z-index: 1;
@@ -188,15 +188,15 @@
 
 .fw-base-center {
   left: 50%;
-  bottom: 6%;
+  bottom: 5%;
   max-width: 220px;
   transform: translateX(-50%) rotate(0deg);
   z-index: 1;
 }
 
 .fw-base-right {
-  right: 2%;
-  bottom: 6%;
+  right: 5%;
+  bottom: 5%;
   max-width: 190px;
   transform: rotate(12deg);
   z-index: 1;
@@ -204,8 +204,8 @@
 
 /* Красные – второй слой */
 .fw-red-1 {
-  left: 8%;
-  bottom: 12%;
+  left: 7%;
+  bottom: 11%;
   max-width: 190px;
   z-index: 2;
 }
@@ -215,74 +215,74 @@
   bottom: 15%;
   transform: translateX(-50%);
   max-width: 210px;
-  z-index: 2;
+  z-index: 4;
 }
 
 .fw-red-3 {
-  right: 8%;
-  bottom: 12%;
+  right: 7%;
+  bottom: 11%;
   max-width: 190px;
   z-index: 2;
 }
 
-/* Жёлтые – третий слой, чуть выше */
+/* Жёлтые – третий слой, повыше */
 .fw-yellow-1 {
-  left: 24%;
+  left: 22%;
   bottom: 18%;
   max-width: 180px;
   z-index: 3;
 }
 
 .fw-yellow-2 {
-  right: 24%;
+  right: 22%;
   bottom: 18%;
-  max-width: 180px;
-  z-index: 3;
-}
-
-/* Синие – между красными и жёлтыми */
-.fw-blue-1 {
-  left: 16%;
-  bottom: 9%;
   max-width: 180px;
   z-index: 2;
 }
 
-.fw-blue-2 {
-  right: 16%;
-  bottom: 14%;
+/* Синие – между красными и жёлтыми */
+.fw-blue-1 {
+  left: 15%;
+  bottom: 9%;
   max-width: 180px;
   z-index: 3;
 }
 
-/* Белые круговые хлопки – почти по краям, повыше */
+.fw-blue-2 {
+  right: 15%;
+  bottom: 14%;
+  max-width: 180px;
+  z-index: 4;
+}
+
+/* Белые круговые хлопки – почти у краёв, повыше */
 .fw-white-1 {
-  left: 5%;
+  left: 4%;
   bottom: 20%;
   max-width: 190px;
   z-index: 3;
 }
 
 .fw-white-2 {
-  right: 5%;
+  right: 4%;
   bottom: 20%;
   max-width: 190px;
-  z-index: 3;
+  z-index: 4;
 }
 
-/* Белые “сопли” – ближе к центру */
+/* Белые “сопли” – ближе к центру, самый верхний слой */
 .fw-whiteS-1 {
   left: 30%;
   bottom: 22%;
   max-width: 200px;
-  z-index: 4;
+  z-index: 5;
 }
 
 .fw-whiteS-2 {
   right: 30%;
   bottom: 22%;
   max-width: 200px;
-  z-index: 4;
+  z-index: 5;
 }
 
 /* Мини-рофло-пук – справа снизу, чуть выше основ */
@@ -290,7 +290,7 @@
   right: 33%;
   bottom: 13%;
   max-width: 130px;
-  z-index: 5;
+  z-index: 6;
 }
 
   </style>
@@ -431,83 +431,86 @@
 
     // FIREWORKS LOGIC
     function startFireworks() {
-      if (!fireworksEl) return;
+  if (!fireworksEl) return;
 
-      const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
+  const bases = [fwBaseLeft, fwBaseCenter, fwBaseRight];
 
-      const bigs  = [
-        fwRed1, fwRed2, fwRed3,
-        fwYellow1, fwYellow2,
-        fwBlue1, fwBlue2,
-        fwWhite1, fwWhite2,
-        fwWhiteS1, fwWhiteS2
-      ];
+  // последовательность больших салютов: цвета и стороны уже перемешаны
+  const bigSequence = [
+    fwBlue2,    // синий справа
+    fwYellow1,  // жёлтый слева
+    fwRed1,     // красный слева
+    fwWhite1,   // белый слева
+    fwBlue1,    // синий слева-низ
+    fwWhiteS1,  // белые сопли слева-центр
+    fwRed3,     // красный справа
+    fwYellow2,  // жёлтый справа
+    fwWhite2,   // белый справа
+    fwRed2,     // красный центр
+    fwWhiteS2   // белые сопли справа-центр
+  ];
 
-      fireworksEl.classList.remove('hidden');
+  fireworksEl.classList.remove('hidden');
 
-      [...bases, ...bigs, fwMini].forEach(img => {
-        if (img) img.style.opacity = 0;
-      });
+  [...bases, ...bigSequence, fwMini].forEach(img => {
+    if (img) img.style.opacity = 0;
+  });
 
-      // ===== 1. ОСНОВЫ – волной слева направо =====
-      const baseTimings = [0, 180, 360]; // мс
+  // ===== 1. ОСНОВЫ – волной, но быстро =====
+  const baseTimings = [0, 220, 440]; // мс
 
-      bases.forEach((img, index) => {
-        if (!img) return;
-        setTimeout(() => {
-          img.style.opacity = 1;
-        }, baseTimings[index]);
-      });
+  bases.forEach((img, index) => {
+    if (!img) return;
+    setTimeout(() => {
+      img.style.opacity = 1;
+    }, baseTimings[index]);
+  });
 
-      // ===== 2. БОЛЬШИЕ БАБАХИ – перемешанные цвета/стороны =====
-      const bigTimings = [
-        { img: fwRed1,    t: 650 },  // красный слева
-        { img: fwBlue2,   t: 880 },  // синий справа
-        { img: fwWhite1,  t: 930 }, // белый слева
-        { img: fwYellow1, t: 1070 }, // жёлтый слева выше
-        { img: fwRed3,    t: 1340 }, // красный справа
-        { img: fwWhiteS1, t: 1360 }, // белые сопли слева-центр
-        { img: fwBlue1,   t: 1400 }, // синий слева-низ
-        { img: fwRed2,    t: 1480 }, // красный центр
-        { img: fwYellow2, t: 1720 }, // жёлтый справа
-        { img: fwWhite2,  t: 1840 }, // белый справа край
-        { img: fwWhiteS2, t: 1960 }  // белые сопли справа-центр
-      ];
+  // ===== 2. БОЛЬШИЕ БАБАХИ – сильный рассинхрон + рандом =====
+  bigSequence.forEach((img, index) => {
+    if (!img) return;
 
-      bigTimings.forEach(({ img, t }) => {
-        if (!img) return;
-        setTimeout(() => {
-          img.style.opacity = 1;
-        }, t);
-      });
+    // Базовое время: каждые 300 мс
+    const baseTime = 900 + index * 300; // 900, 1200, 1500, ... ~3900
 
-      // ===== 3. Плавное затухание =====
-      setTimeout(() => {
-        bases.forEach(img => {
-          if (img) img.style.opacity = 0;
-        });
-      }, 2700);
+    // Небольшой разброс, чтобы вообще не было ощущения синхронизации
+    const jitter = Math.random() * 180; // 0–180 мс
 
-      setTimeout(() => {
-        bigs.forEach(img => {
-          if (img) img.style.opacity = 0;
-        });
-      }, 3000);
+    setTimeout(() => {
+      img.style.opacity = 1;
+    }, baseTime + jitter);
+  });
 
-      // ===== 4. Мини-рофло-пук =====
-      setTimeout(() => {
-        if (fwMini) fwMini.style.opacity = 1;
-      }, 3800);
+  // ===== 3. Плавное затухание =====
+  // основы исчезают раньше
+  setTimeout(() => {
+    bases.forEach(img => {
+      if (img) img.style.opacity = 0;
+    });
+  }, 4000);
 
-      setTimeout(() => {
-        if (fwMini) fwMini.style.opacity = 0;
-      }, 4600);
+  // большие салюты гаснут чуть позже
+  setTimeout(() => {
+    bigSequence.forEach(img => {
+      if (img) img.style.opacity = 0;
+    });
+  }, 4600);
 
-      // ===== 5. Убираем слой целиком =====
-      setTimeout(() => {
-        fireworksEl.classList.add('hidden');
-      }, 4900);
-    }
+  // ===== 4. Мини-рофло-пук =====
+  setTimeout(() => {
+    if (fwMini) fwMini.style.opacity = 1;
+  }, 4800);
+
+  setTimeout(() => {
+    if (fwMini) fwMini.style.opacity = 0;
+  }, 5600);
+
+  // ===== 5. Убираем слой целиком =====
+  setTimeout(() => {
+    fireworksEl.classList.add('hidden');
+  }, 5900);
+}
+
 
 
     // ПЕРЕХОД К ПРЕДСКАЗАНИЮ
@@ -585,6 +588,7 @@
   </script>
 </body>
 </html>
+
 
 
 
