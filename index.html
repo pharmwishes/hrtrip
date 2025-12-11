@@ -159,10 +159,66 @@
     .card-animate-in {
       animation: cardFadeInZoom 0.4s ease forwards;
     }
+    /* ============================================================
+   FIREWORKS BLOCK: оформление гифок-фейерверков
+   - .fireworks: фиксированный слой поверх фона, под карточкой
+   - .fw-* : позиции отдельных хлопков
+   ============================================================ */
+.fireworks {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;   /* чтобы клики проходили сквозь слой */
+  z-index: 1;             /* ниже карточки (у карточки z-index выше) */
+}
+
+.fw {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.35s ease-out;
+}
+
+/* Основной хлопок — чуть ниже центра, за/под карточкой */
+.fw-base {
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  max-width: 220px;
+}
+
+/* Красный хлопок — слева внизу */
+.fw-red {
+  left: 6%;
+  bottom: 12%;
+  max-width: 200px;
+}
+
+/* Жёлтый хлопок — справа внизу */
+.fw-yellow {
+  right: 5%;
+  bottom: 15%;
+  max-width: 220px;
+}
+
+/* Маленький рофл-хлопок — сверху по центру */
+.fw-mini {
+  left: 50%;
+  top: 12%;
+  transform: translateX(-50%);
+  max-width: 140px;
+}
+
     /* ====================== ANIMATION BLOCK END ====================== */
   </style>
 </head>
 <body>
+  <!-- FIREWORKS BLOCK: слой с гифками, вспыхивает при показе предсказания -->
+<div id="fireworks" class="fireworks hidden">
+  <img id="fw-base"   class="fw fw-base"   src="osnova.gif"        alt="Фейерверк">
+  <img id="fw-red"    class="fw fw-red"    src="red_babah.gif"     alt="Фейерверк">
+  <img id="fw-yellow" class="fw fw-yellow" src="yellow_babah.gif"  alt="Фейерверк">
+  <img id="fw-mini"   class="fw fw-mini"   src="mini_babah.gif"    alt="Фейерверк">
+</div>
+
   <div class="app">
     <!-- Экран ввода кода -->
     <div id="code-screen" class="card">
@@ -227,7 +283,6 @@
       "EVIK1223": "Вас ждет удача в лотерее: вы выиграете \n100 часов тишины и покоя.",
       "AVVL920": "В 2026 году вы станете обладателем абонемента в спортзал, которым будете регулярно пользоваться, а не просто оплачивать.",
       "VAKH1023": "В следующем году вы так хорошо отдохнете, \nчто забудете свой рабочий логин и пароль.",
-      "AIZA1025": "Вы изобретете новый вид кофе-брейка, \nкоторый будет восстанавливать \nуровень эмпатии HR-а за 5 минут.",
       "MNAR1225": "В 2026 году у вас появится личный помощник (возможно, робот), который будет отвечать \nна сообщения в нерабочее время.",
       "VVOL1125": "Вы научитесь говорить «нет» так, чтобы кандидат оставался доволен и благодарил за отказ.",
       "EOEK1124": "Опросы вовлеченности покажут, что сотрудники больше всего вовлечены в обсуждение мемов \nв рабочих чатах.",
@@ -246,6 +301,57 @@
     const codeScreen    = document.getElementById('code-screen');
     const wishScreen    = document.getElementById('wish-screen');
     const wishTextEl    = document.getElementById('wish-text');
+// ============================================================
+    // ANIMATION_BABAH //
+    const fireworksEl = document.getElementById('fireworks');
+    const fwBase      = document.getElementById('fw-base');
+    const fwRed       = document.getElementById('fw-red');
+    const fwYellow    = document.getElementById('fw-yellow');
+    const fwMini      = document.getElementById('fw-mini');
+
+    // ============================================================
+    //  FIREWORKS BLOCK (JS): последовательное появление гифок
+    //  - сначала основа,
+    //  - через ~0.7 с красный + жёлтый,
+    //  - через ~1.6 с маленький верхний,
+    //  - через ~3.2 с всё прячем.
+    // ============================================================
+    function startFireworks() {
+      if (!fireworksEl) return;
+
+      // показываем слой
+      fireworksEl.classList.remove('hidden');
+
+      // начальное состояние (на всякий случай)
+      [fwBase, fwRed, fwYellow, fwMini].forEach(img => {
+        if (img) img.style.opacity = 0;
+      });
+
+      // 1) основа сразу
+      setTimeout(() => {
+        if (fwBase) fwBase.style.opacity = 1;
+      }, 0);
+
+      // 2) через 700 мс — два крупных хлопка по бокам
+      setTimeout(() => {
+        if (fwRed) fwRed.style.opacity = 1;
+        if (fwYellow) fwYellow.style.opacity = 1;
+      }, 700);
+
+      // 3) ещё через ~900 мс — маленький рофл сверху
+      setTimeout(() => {
+        if (fwMini) fwMini.style.opacity = 1;
+      }, 1600);
+
+      // 4) через 3.2 с всё плавно убираем
+      setTimeout(() => {
+        fireworksEl.classList.add('hidden');
+        [fwBase, fwRed, fwYellow, fwMini].forEach(img => {
+          if (img) img.style.opacity = 0;
+        });
+      }, 3200);
+    }
+    // ====================== FIREWORKS BLOCK END ======================
 
     // ============================================================
     //  ANIMATION BLOCK (JS):
@@ -274,6 +380,31 @@
       };
       wishScreen.addEventListener('animationend', onWishAnimEnd);
     }
+        function showWishScreenWithAnimation() {
+      // запускаем фейерверки при переходе к предсказанию
+      startFireworks();
+
+      // показываем вторую карточку (она появится с анимацией)
+      wishScreen.classList.remove('hidden');
+      wishScreen.classList.add('card-animate-in');
+
+      // запускаем анимацию исчезновения первой
+      codeScreen.classList.add('card-animate-out');
+
+      const onCodeAnimEnd = () => {
+        codeScreen.classList.add('hidden');
+        codeScreen.classList.remove('card-animate-out');
+        codeScreen.removeEventListener('animationend', onCodeAnimEnd);
+      };
+      codeScreen.addEventListener('animationend', onCodeAnimEnd);
+
+      const onWishAnimEnd = () => {
+        wishScreen.classList.remove('card-animate-in');
+        wishScreen.removeEventListener('animationend', onWishAnimEnd);
+      };
+      wishScreen.addEventListener('animationend', onWishAnimEnd);
+    }
+
     // ====================== ANIMATION BLOCK END ======================
 
     function normalizeCode(raw) {
@@ -326,6 +457,7 @@
   </script>
 </body>
 </html>
+
 
 
 
