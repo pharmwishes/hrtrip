@@ -459,7 +459,7 @@
       });
 
       // 1. Основы – волной, но быстро
-      const baseTimings = [0, 320, 640];
+      const baseTimings = [0, 300, 540];
 
       bases.forEach((img, index) => {
         if (!img) return;
@@ -472,8 +472,8 @@
       bigSequence.forEach((img, index) => {
         if (!img) return;
 
-        const baseTime = 900 + index * 350;   // 900, 1200, 1500, ...
-        const jitter   = Math.random() * 250; // 0–180 мс
+        const baseTime = 900 + index * 300;   // 900, 1200, 1500, ...
+        const jitter   = Math.random() * 180; // 0–180 мс
 
         setTimeout(() => {
           img.style.opacity = 1;
@@ -583,5 +583,6 @@
   </script>
 </body>
 </html>
+
 
 
