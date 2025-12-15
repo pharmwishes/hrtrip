@@ -169,7 +169,7 @@
     .fireworks {
       position: absolute;
       left: 50%;
-      bottom: -200px;           /* зона под карточкой */
+      bottom: -300px;           /* зона под карточкой */
       transform: translateX(-50%);
       width: 160%;              /* шире карточки */
       height: 220px;            /* высота полосы салютов */
@@ -187,14 +187,14 @@
     .fw-base-left {
       left: 5%;
       bottom: 8%;
-      max-width: 190px;
+      max-width: 180px;
       transform: rotate(-12deg);
       z-index: 1;
     }
 
     .fw-base-center {
       left: 50%;
-      bottom: 8%;
+      bottom: 10%;
       max-width: 220px;
       transform: translateX(-50%) rotate(0deg);
       z-index: 1;
@@ -279,14 +279,14 @@
     /* Белые “сопли” – ближе к центру, самый верхний слой */
     .fw-whiteS-1 {
       left: 30%;
-      bottom: 40%;
+      bottom: 27%;
       max-width: 200px;
       z-index: 5;
     }
 
     .fw-whiteS-2 {
       right: 30%;
-      bottom: 40%;
+      bottom: 31%;
       max-width: 200px;
       z-index: 5;
     }
@@ -459,7 +459,7 @@
       });
 
       // 1. Основы – волной, но быстро
-      const baseTimings = [0, 220, 440];
+      const baseTimings = [0, 320, 640];
 
       bases.forEach((img, index) => {
         if (!img) return;
@@ -472,8 +472,8 @@
       bigSequence.forEach((img, index) => {
         if (!img) return;
 
-        const baseTime = 900 + index * 300;   // 900, 1200, 1500, ...
-        const jitter   = Math.random() * 180; // 0–180 мс
+        const baseTime = 900 + index * 350;   // 900, 1200, 1500, ...
+        const jitter   = Math.random() * 250; // 0–180 мс
 
         setTimeout(() => {
           img.style.opacity = 1;
@@ -496,16 +496,16 @@
       // 4. Мини-рофло-пук
       setTimeout(() => {
         if (fwMini) fwMini.style.opacity = 1;
-      }, 4800);
+      }, 5800);
 
       setTimeout(() => {
         if (fwMini) fwMini.style.opacity = 0;
-      }, 5600);
+      }, 6600);
 
       // 5. Убираем слой целиком
       setTimeout(() => {
         fireworksEl.classList.add('hidden');
-      }, 5900);
+      }, 6900);
     }
 
     // Анимация перехода от ввода кода к предсказанию
@@ -583,4 +583,5 @@
   </script>
 </body>
 </html>
+
 
